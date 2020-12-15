@@ -1,0 +1,59 @@
+﻿$color-black: #000000;
+$color-white: #ffffff;
+$color-gray: #7a7a7a;
+$color-blue: #042453;
+$color-green: #00d38b;
+$color-pink: #f6297d;
+$color-yellow: #ffdc00;
+$color-purple: #aa40d8;
+$color-red: #B30C0C;
+
+
+$theme-colors: (
+    'black':	$color-black,
+    'white':	$color-white,
+    'gray':	    $color-gray,
+    'red':	    $color-red,
+    'yellow':	$color-yellow,
+    'green':	$color-green,
+    "blue":     $color-blue,
+    "pink":     $color-pink,
+    "purple":   $color-purple
+);
+
+
+@mixin hover-focus {
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+@mixin custom-bg-variant($parent, $value) {
+    #{$parent} {
+        background-color: $value !important;
+    }
+
+    a#{$parent},
+    button#{$parent} {
+    
+        @include hover-focus {
+            background-color: darken($value, 10%) !important;
+        }
+    }
+}
+
+@mixin custom-color-variant($parent, $value) {
+    #{$parent} {
+        color: $value  !important;
+
+        h1,h2,h3,h4,p{
+            color: $value !important;
+        }
+    }
+}
+
+@each $color, $value in $theme-colors {
+    @include custom-color-variant('.color-#{$color}',$value);
+    @include custom-bg-variant('.bg-#{$color}', $value);
+}
